@@ -65,10 +65,18 @@ const ApiService: ServiceSchema = {
       }
 
       if (!token) {
-        throw new E.UnAuthorizedError(E.ERR_NO_TOKEN, null);
+        throw new E.UnAuthorizedError(E.ERR_NO_TOKEN, 'token no sent');
       }
 
       // validate token
+      try {
+        const data = await ctx.call('auth.verifyToken', { token });
+        ctx.meta.user = data;
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+        throw new E.UnAuthorizedError(E.ERR_INVALID_TOKEN, null);
+      }
     },
   },
 };
