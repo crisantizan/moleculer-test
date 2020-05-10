@@ -31,6 +31,7 @@ const GreeterService: ServiceSchema = {
      * @param {String} name - User name
      */
     welcome: {
+      auth: true,
       params: {
         name: 'string',
       },
