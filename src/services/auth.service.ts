@@ -1,8 +1,6 @@
 import { ServiceSchema, Context } from 'moleculer';
-import ApiGateway = require('moleculer-web');
 import jwt from 'jsonwebtoken';
-import { Userlogin } from 'src/types/auth-service.type';
-const E = ApiGateway.Errors;
+import { Userlogin } from '../types/auth-service.type';
 
 const AuthService: ServiceSchema = {
   name: 'auth',
@@ -42,15 +40,14 @@ const AuthService: ServiceSchema = {
       rest: 'POST /login',
       params: {
         email: { type: 'email' },
-        password: { type: 'string', min: 6 }
+        password: { type: 'string', min: 6 },
       },
       async handler(ctx: Context) {
-        return ctx.params;
-        const { email, password } = ctx.params as Userlogin;
+        const user = ctx.params as Userlogin;
 
         return {
-          user: { email, password },
-          token: this.createToken({ email, password }),
+          user,
+          token: this.createToken(user),
         };
       },
     },
@@ -58,7 +55,7 @@ const AuthService: ServiceSchema = {
 
   methods: {
     /** create token [15 days] */
-    createToken(user: { email: string; password: string }) {
+    createToken(user: Userlogin) {
       return jwt.sign(user, this.settings.JWT_SECRET, { expiresIn: '15d' });
     },
   },
