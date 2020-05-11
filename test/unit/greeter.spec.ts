@@ -1,7 +1,7 @@
 "use strict";
 
 import { ServiceBroker, Errors } from "moleculer";
-import TestService from "../../services/greeter.service";
+import TestService from "../../src/services/greeter.service";
 
 describe("Test 'greeter' service", () => {
 	const broker = new ServiceBroker();
