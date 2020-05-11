@@ -75,7 +75,7 @@ const ApiService: ServiceSchema = {
         console.log(data);
       } catch (error) {
         console.log(error);
-        throw new E.UnAuthorizedError(E.ERR_INVALID_TOKEN, null);
+        throw new E.UnAuthorizedError(E.ERR_INVALID_TOKEN, error.message);
       }
     },
   },

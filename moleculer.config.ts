@@ -1,5 +1,7 @@
 'use strict';
 import { BrokerOptions, Errors } from 'moleculer';
+import { CustomValidator } from './src/common/custom-validator';
+
 
 /**
  * Moleculer ServiceBroker configuration file
@@ -117,9 +119,10 @@ const brokerConfig: BrokerOptions = {
   },
 
   // Enable parameters validation. More info: https://moleculer.services/docs/0.13/validating.html
+  // validation: true,
   validation: true,
   // Custom Validator class for validation.
-  validator: null,
+  validator: new CustomValidator(),
 
   // Enable metrics function. More info: https://moleculer.services/docs/0.13/metrics.html
   metrics: false,
